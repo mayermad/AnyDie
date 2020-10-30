@@ -12,6 +12,7 @@ RUN pip install -r requirements.txt
 
 # copy the content of the local src directory to the working directory
 COPY cogs/ ./cogs
+COPY .env .
 COPY AnyDie.py .
 
 # command to run on container start
