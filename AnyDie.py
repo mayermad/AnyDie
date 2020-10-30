@@ -1,5 +1,8 @@
 import discord
 from discord.ext import commands
+from dotenv import load_dotenv
+import os
+
 
 
 initial_extensions = ['cogs.DiceCommands']
@@ -18,5 +21,6 @@ async def on_ready():
     print(f'\n\nLogged in as: {bot.user.name} - {bot.user.id}\nVersion: {discord.__version__}\n')
     print(f'Successfully logged in and booted...!')
 
-
-bot.run("Token here", bot=True, reconnect=True)
+load_dotenv()
+token = os.getenv("TOKEN")
+bot.run(token, bot=True, reconnect=True)
