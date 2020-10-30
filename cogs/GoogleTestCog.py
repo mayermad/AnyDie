@@ -6,8 +6,9 @@ from google.auth.transport.requests import Request
 import pickle
 import os.path
 
-SCOPES = ['https://www.googleapis.com/auth/documents.readonly']
-DOCUMENT_ID = '195j9eDD3ccgjQRttHhJPymLJUCOUjs-jmwTrekvdjFE'
+SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
+DOCUMENT_ID = '1nMwDuZCXIvx8BDdx1dRIpBn5VDQ6WUwvPS_yv46SwqI'
+SAMPLE_RANGE_NAME = 'B1:B11'
 
 
 class GoogleTestCog(commands.Cog):
@@ -32,11 +33,18 @@ class GoogleTestCog(commands.Cog):
             with open('token.pickle', 'wb') as token:
                 pickle.dump(creds, token)
 
-        service = build('docs', 'v1', credentials=creds)
+        service = build('sheets', 'v4', credentials=creds)
 
         # Retrieve the documents contents from the Docs service.
-        document = service.documents().get(documentId=DOCUMENT_ID).execute()
-        await ctx.message.channel.send('The title of the document is: {}'.format(document.get('title')))
+        sheet = service.spreadsheets()
+        result = sheet.values().get(spreadsheetId=DOCUMENT_ID, range=SAMPLE_RANGE_NAME).execute()
+        values = result.get('values', [])
+        if not values:
+            print('No data found.')
+            return
+        await ctx.message.channel.send('Liste in Spalte B')
+        for row in values:
+            await ctx.message.channel.send('%s' % (row[0]))
         return
 
 
