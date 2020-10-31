@@ -6,15 +6,15 @@ from google.auth.transport.requests import Request
 import pickle
 import os.path
 
+
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
 DOCUMENT_ID = '1nMwDuZCXIvx8BDdx1dRIpBn5VDQ6WUwvPS_yv46SwqI'
-SAMPLE_RANGE_NAME = 'B1:B11'
+SAMPLE_RANGE_NAME = 'Durak!A9:E189'
 
 
 class GoogleTestCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-
 
     @commands.command(pass_context=True)
     async def test(self, ctx):
@@ -42,9 +42,10 @@ class GoogleTestCog(commands.Cog):
         if not values:
             print('No data found.')
             return
-        await ctx.message.channel.send('Liste in Spalte B')
+        await ctx.message.channel.send('Test um bestimmten skill auszugeben')
         for row in values:
-            await ctx.message.channel.send('%s' % (row[0]))
+            if row[0] == "Pick Lock":
+                await ctx.message.channel.send('%s : %s' % (row[0], row[4]))
         return
 
 

@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 import os
 
 
-initial_extensions = ['cogs.DiceCommands', 'cogs.GoogleTestCog']
+initial_extensions = ['cogs.DiceCommands', 'cogs.GoogleTestCog', 'cogs.SkillCheck']
 
 
 description = '''Dice rolling bot.'''
