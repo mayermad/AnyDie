@@ -1,3 +1,9 @@
 discord~=1.0.1
 
 python-dotenv~=0.15.0
+
+google-api-python-client 
+
+google-auth-httplib2 
+
+google-auth-oauthlib
